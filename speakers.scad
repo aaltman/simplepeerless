@@ -87,7 +87,7 @@ translate([500, 0, 0]) {
 module outer_cutout() {
     difference() {
         translate([4, 4, 0])
-        scale([0.95, 0.95])
+        scale([0.96, 0.96])
         base_cross_section();
         translate([12, 12, 0])
         scale([0.9, 0.9])
@@ -97,29 +97,29 @@ module outer_cutout() {
 
 module middle_cutout() {
     difference() {
-        translate([21, 21, 0])
-        scale([0.75, 0.75])
+        translate([16, 16, 0])
+        scale([0.87, 0.87])
         base_cross_section();
-        translate([25, 25, 0])
-        scale([0.7, 0.7])
+        translate([21, 21, 0])
+        scale([0.84, 0.84])
         base_cross_section();
     }
 }
 
 module inner_cutout() {
     difference() {
-        translate([29, 29, 0])
-        scale([0.65, 0.65])
+        translate([24, 24, 0])
+        scale([0.82, 0.82])
         base_cross_section();
-        translate([37, 37, 0])
-        scale([0.55, 0.55])
+        translate([32, 32, 0])
+        scale([0.77, 0.77])
         base_cross_section();
     }
 }
 
 module main_volume_cutout() {
-    translate([40, 40, 0])
-    scale([0.5, 0.5])
+    translate([37, 37, 0])
+    scale([0.74, 0.74])
     base_cross_section();
 }
 
