@@ -4,36 +4,36 @@ front_baffle_width = speaker_size + 2 * corner_radius + 10; // 10mm extra margin
 depth = 250; // arbitrary
 rear_width = speaker_size * 0.68; // arbitrary
 
-wall_ellipse_aspect_ratio = 2.5;
+wall_ellipse_aspect_ratio = 2.8;
 wall_ellipse_unscaled_radius = 100;
 wall_ellipse_y_offset = wall_ellipse_unscaled_radius * 1.5;
 wall_ellipse_angle_deg = 10;
 right_wall_front_baffle_width_offset = 20; // FIXME seems to work - why?
 
-base_height = 8;
+base_height = 4;
 main_volume_height = 800;
 
-outer_cutout_x_thickness = 20;
-outer_cutout_y_offset = 0;
-outer_cutout_x_offset_from_wall = 2;
-outer_cutout_y_offset_from_baffle = 2;
+outer_cutout_scaling_factor = 0.94;
+outer_cutout_x_offset_from_wall = 3;
+outer_cutout_y_offset_from_baffle = 1;
+outer_cutout_inner_x_offset = 10;
+outer_cutout_inner_y_offset = 8;
 
 // Calculate so that we end up with 2mm thickness.
 outer_cutout_scaling_factor_from_wall_size = (front_baffle_width - outer_cutout_x_offset_from_wall) / front_baffle_width;
 
-middle_cutout_thickness = 3;
-middle_cutout_offset_from_outer_cutout = 24;
-middle_cutout_x_offset = 14;
-middle_cutout_y_offset = 14;
-middle_cutout_inner_x_offset = 18;
-middle_cutout_inner_y_offset = 15;
-middle_cutout_outer_wall_scale_factor = outer_cutout_scaling_factor_from_wall_size - 0.105;
-middle_cutout_inner_wall_scale_factor = middle_cutout_outer_wall_scale_factor - 0.02;
+middle_cutout_x_offset = 11;
+middle_cutout_y_offset = 9;
+middle_cutout_inner_x_offset = 16;
+middle_cutout_inner_y_offset = 17;
+middle_cutout_outer_wall_scale_factor = outer_cutout_scaling_factor_from_wall_size - 0.06;
+middle_cutout_inner_wall_scale_factor = middle_cutout_outer_wall_scale_factor - 0.04;
 
-inner_cutout_offset_from_outer_cutout = 20;
-inner_cutout_outside_scale_factor = middle_cutout_inner_wall_scale_factor - 0.015;
+inner_cutout_x_offset = 17;
+inner_cutout_y_offset = 18;
+inner_cutout_outside_scale_factor = middle_cutout_inner_wall_scale_factor - 0.008;
 inner_cutout_inner_wall_offset = 32;
-inner_cutout_inner_wall_scale_factor = 0.77;
+inner_cutout_inner_wall_scale_factor = 0.765;
 
 main_volume_cutout_offset = 34.4;
 main_volume_cutout_scale_factor = 0.754;
@@ -119,8 +119,8 @@ module outer_cutout() {
         translate([outer_cutout_x_offset_from_wall, outer_cutout_y_offset_from_baffle, 0])
         scale([outer_cutout_scaling_factor_from_wall_size, outer_cutout_scaling_factor_from_wall_size])
         base_cross_section();
-        translate([12, 12, 0])
-        scale([0.9, 0.9])
+        translate([outer_cutout_inner_x_offset, outer_cutout_inner_y_offset, 0])
+        scale([outer_cutout_scaling_factor, outer_cutout_scaling_factor])
         base_cross_section();
     }
 }
@@ -130,7 +130,7 @@ module middle_cutout() {
         translate([middle_cutout_x_offset, middle_cutout_y_offset, 0])
         scale([middle_cutout_outer_wall_scale_factor, middle_cutout_outer_wall_scale_factor])
         base_cross_section();
-        translate([middle_cutout_inner_x_offset, middle_cutout_inner_x_offset, 0])
+        translate([middle_cutout_inner_x_offset, middle_cutout_inner_y_offset, 0])
         scale([middle_cutout_inner_wall_scale_factor, middle_cutout_inner_wall_scale_factor])
         base_cross_section();
     }
@@ -138,7 +138,7 @@ module middle_cutout() {
 
 module inner_cutout() {
     difference() {
-        translate([inner_cutout_offset_from_outer_cutout, inner_cutout_offset_from_outer_cutout, 0])
+        translate([inner_cutout_x_offset, inner_cutout_y_offset, 0])
         scale([inner_cutout_outside_scale_factor, inner_cutout_outside_scale_factor])
         base_cross_section();
         translate([inner_cutout_inner_wall_offset, inner_cutout_inner_wall_offset, 0])
